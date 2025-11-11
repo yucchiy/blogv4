@@ -1,0 +1,32 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import ProjectPostDetails from "@/layouts/ProjectPostDetails.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+
+export interface Props {
+  post: CollectionEntry<"projects">;
+}
+
+export async function getStaticPaths() {
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => data.type === "unity-weekly" && !data.draft
+  );
+
+  return projects.map(post => ({
+    params: { number: post.id.replace("unity-weekly/", "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Unity Weeklyの全記事を取得してソート
+const allUnityWeekly = await getCollection(
+  "projects",
+  ({ data }) => data.type === "unity-weekly"
+);
+const sortedPosts = getSortedPosts(allUnityWeekly);
+---
+
+<ProjectPostDetails post={post} posts={sortedPosts} />

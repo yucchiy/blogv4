@@ -1,0 +1,100 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import Hr from "@/components/Hr.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE, CONTENT_CONFIG } from "@/config";
+
+// 全プロジェクトを取得
+const allProjects = await getCollection("projects", ({ data }) => !data.draft);
+
+// プロジェクトタイプごとにグループ化してソート
+const unityWeekly = allProjects.filter(p => p.data.type === "unity-weekly");
+const sortedUnityWeekly = getSortedPosts(unityWeekly);
+const recentUnityWeekly = sortedUnityWeekly.slice(0, SITE.postPerIndex);
+
+const directx12 = allProjects.filter(p => p.data.type === "directx12-csharp");
+const sortedDirectx12 = getSortedPosts(directx12);
+const recentDirectx12 = sortedDirectx12.slice(0, SITE.postPerIndex);
+
+const opentkOpengl = allProjects.filter(p => p.data.type === "opentk-opengl");
+const sortedOpentkOpengl = getSortedPosts(opentkOpengl);
+const recentOpentkOpengl = sortedOpentkOpengl.slice(0, SITE.postPerIndex);
+
+// プロジェクト情報
+const projects = [
+  {
+    id: "unity-weekly",
+    ...CONTENT_CONFIG.projects["unity-weekly"],
+    posts: recentUnityWeekly,
+    count: unityWeekly.length,
+    active: unityWeekly.length > 0,
+  },
+  {
+    id: "directx12-csharp",
+    ...CONTENT_CONFIG.projects["directx12-csharp"],
+    posts: recentDirectx12,
+    count: directx12.length,
+    active: directx12.length > 0,
+  },
+  {
+    id: "opentk-opengl",
+    ...CONTENT_CONFIG.projects["opentk-opengl"],
+    posts: recentOpentkOpengl,
+    count: opentkOpengl.length,
+    active: opentkOpengl.length > 0,
+  },
+].filter(p => p.active);
+---
+
+<Layout
+  title={`Projects | ${SITE.title}`}
+  description="継続的に取り組んでいるプロジェクト・連載コンテンツの一覧です。"
+>
+  <Header />
+  <main id="main-content">
+    <section class="pb-4 pt-12">
+      <h1 class="text-2xl font-semibold sm:text-3xl">Projects</h1>
+      <p class="mt-2 mb-6">継続的に取り組んでいるプロジェクト・連載コンテンツの一覧です。</p>
+    </section>
+    {
+      projects.length > 0 ? (
+        <>
+          {projects.map((project, index) => (
+            <>
+              <Hr />
+              <section id={project.id} class="pb-6 pt-12">
+                <h2 class="text-2xl font-semibold tracking-wide">
+                  {project.title}
+                </h2>
+                <p class="my-2 text-foreground/80">{project.description}</p>
+                <ul>
+                  {project.posts.map(post => (
+                    <Card {...post} variant="h3" />
+                  ))}
+                </ul>
+              </section>
+
+              <div class="my-8 text-center">
+                <LinkButton href={project.url}>
+                  全ての記事を見る
+                  <IconArrowRight class="inline-block rtl:-rotate-180" />
+                </LinkButton>
+              </div>
+            </>
+          ))}
+        </>
+      ) : (
+        <p class="text-center text-foreground/60">
+          現在公開中のプロジェクトはありません。
+        </p>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>

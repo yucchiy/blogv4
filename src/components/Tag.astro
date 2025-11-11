@@ -1,0 +1,36 @@
+---
+import IconHash from "@/assets/icons/IconHash.svg";
+
+export interface Props {
+  tag: string;
+  tagName: string;
+  size?: "sm" | "lg";
+}
+
+const { tag, tagName, size = "sm" } = Astro.props;
+---
+
+<li
+  class:list={[
+    "group inline-block group-hover:cursor-pointer",
+    size === "sm" ? "my-1 me-2" : "mx-1 my-3",
+  ]}
+>
+  <a
+    href={`/tags/${tag}/`}
+    transition:name={tag}
+    class:list={[
+      "relative inline-block rounded-md bg-accent/15 px-2 py-1 text-lg group-hover:-top-0.5 group-hover:bg-accent/30 group-hover:text-accent focus-visible:bg-accent/30 focus-visible:outline-2 focus-visible:outline-offset-2",
+      { "text-sm px-1.5 py-0.5": size === "sm" },
+    ]}
+  >
+    <IconHash
+      class:list={[
+        "inline-block opacity-80",
+        { "size-4 -me-0.5": size === "sm" },
+        { "size-6 -me-1": size === "lg" },
+      ]}
+    />
+    <span>{tagName}</span>
+  </a>
+</li>

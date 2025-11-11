@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import Card from "@/components/Card.astro";
+import Hr from "@/components/Hr.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE, CONTENT_CONFIG } from "@/config";
+
+const posts = await getCollection("blog");
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+
+const sortedPosts = getSortedPosts(posts);
+const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
+const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+
+// Unity Weekly
+const unityWeekly = projects.filter(p => p.data.type === "unity-weekly");
+const sortedUnityWeekly = getSortedPosts(unityWeekly);
+const recentUnityWeekly = sortedUnityWeekly.slice(0, 4);
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index">
+    <section class="pb-4 pt-12">
+      <h1 class="text-2xl font-semibold sm:text-3xl">{SITE.title}</h1>
+      <p class="mt-2 mb-6">{SITE.desc}</p>
+      <div class="mb-6">
+        <LinkButton href="/profile/">
+          プロフィール
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    </section>
+
+    <Hr />
+
+    {
+      featuredPosts.length > 0 && (
+        <>
+          <section id="featured" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+            <ul>
+              {featuredPosts.map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+          {recentPosts.length > 0 && <Hr />}
+        </>
+      )
+    }
+
+    {
+      recentPosts.length > 0 && (
+        <>
+          <section id="posts" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">{CONTENT_CONFIG.posts.title}</h2>
+            <p class="my-2 text-foreground/80">{CONTENT_CONFIG.posts.description}</p>
+            <ul>
+              {recentPosts.map(
+                (data, index) =>
+                  index < 4 && <Card variant="h3" {...data} />
+              )}
+            </ul>
+          </section>
+          <div class="my-8 text-center">
+            <LinkButton href={CONTENT_CONFIG.posts.url}>
+              全ての記事を見る
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+        </>
+      )
+    }
+
+    {
+      recentUnityWeekly.length > 0 && (
+        <>
+          <Hr />
+          <section id="unity-weekly" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">{CONTENT_CONFIG.projects["unity-weekly"].title}</h2>
+            <p class="my-2 text-foreground/80">{CONTENT_CONFIG.projects["unity-weekly"].description}</p>
+            <ul>
+              {recentUnityWeekly.map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+          <div class="my-8 text-center">
+            <LinkButton href={CONTENT_CONFIG.projects["unity-weekly"].url}>
+              全ての記事を見る
+              <IconArrowRight class="inline-block rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+        </>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
+  });
+</script>

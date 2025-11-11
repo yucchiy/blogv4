@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@import "./typography.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root,
+html[data-theme="light"] {
+  --background: #ffffff; /* 純白 */
+  --foreground: #334155; /* Slate-700 - 落ち着いた青灰色 */
+  --heading: #1e293b;    /* Slate-800 - 見出し用 */
+  --accent: #6366f1;     /* Indigo-500 - モダンで洗練された紫青 */
+  --muted: #e2e8f0;      /* Slate-200 - 柔らかいミュート */
+  --border: #cbd5e1;     /* Slate-300 - 優しいボーダー */
+}
+
+html[data-theme="dark"] {
+  --background: #0f172a; /* Slate-900 - 深い青黒 */
+  --foreground: #cbd5e1; /* Slate-300 - 柔らかいライトグレー */
+  --heading: #f1f5f9;    /* Slate-100 - 見出し用 */
+  --accent: #818cf8;     /* Indigo-400 - バランスの良い紫青 */
+  --muted: #334155;      /* Slate-700 - ミュート要素用 */
+  --border: #475569;     /* Slate-600 - ボーダー用 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+  body {
+    @apply flex min-h-svh flex-col bg-background text-foreground selection:bg-accent/75 selection:text-background;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", "Yu Gothic Medium", "Yu Gothic", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  a,
+  button {
+    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  section,
+  footer {
+    @apply mx-auto max-w-app px-4;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+.active-nav {
+  @apply underline decoration-solid decoration-2 underline-offset-4;
+}
+
+/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 1rem;
+}

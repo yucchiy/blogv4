@@ -1,0 +1,124 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import Datetime from "@/components/Datetime.astro";
+import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { SITE } from "@/config";
+
+export interface Props {
+  post: CollectionEntry<"projects">;
+  posts: CollectionEntry<"projects">[];
+}
+
+const { post, posts } = Astro.props;
+
+const { title, description, pubDatetime, tags } = post.data;
+
+const { Content } = await render(post);
+
+const ogImageUrl = post.data.ogImage
+  ? post.data.ogImage
+  : `/project/unity-weekly/${post.id.replace("unity-weekly/", "")}/index.png`;
+
+// 前後の記事を取得
+const currentIndex = posts.findIndex(p => p.id === post.id);
+const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+
+// Unity Weeklyの場合のURL生成
+function getProjectPostUrl(projectPost: CollectionEntry<"projects">) {
+  if (projectPost.data.type === "unity-weekly") {
+    const number = projectPost.id.replace("unity-weekly/", "");
+    return `/project/unity-weekly/${number}/`;
+  }
+  // 他のプロジェクトタイプの対応は今後追加
+  return `/project/${projectPost.id}/`;
+}
+
+const currentUrl = getProjectPostUrl(post);
+---
+
+<Layout title={`${title} | ${SITE.title}`} description={description} ogImage={ogImageUrl}>
+  <Header />
+  <BackButton />
+  <main
+    id="main-content"
+    class:list={[
+      "mx-auto w-full max-w-app px-4 pb-12",
+      { "mt-8": !SITE.showBackButton },
+    ]}
+  >
+    <h1
+      transition:name={slugifyStr(title)}
+      class="inline-block text-xl font-bold text-accent sm:text-2xl"
+    >
+      {title}
+    </h1>
+    <Datetime
+      pubDatetime={pubDatetime}
+      modDatetime={null}
+      timezone={SITE.timezone}
+      size="lg"
+      class="my-2"
+    />
+    <article
+      id="article"
+      class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+    >
+      <Content />
+    </article>
+
+    <hr class="my-8 border-dashed" />
+
+    <ul class="mt-4 mb-8 sm:my-8">
+      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+    </ul>
+
+    <BackToTopButton />
+
+    <ShareLinks title={title} />
+
+    <hr class="my-6 border-dashed" />
+
+    <!-- Previous/Next Post Buttons -->
+    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        prevPost && (
+          <a
+            href={getProjectPostUrl(prevPost)}
+            class="flex w-full gap-1 hover:opacity-75"
+          >
+            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
+            <div>
+              <span>Previous Post</span>
+              <div class="text-sm text-accent/85">{prevPost.data.title}</div>
+            </div>
+          </a>
+        )
+      }
+      {
+        nextPost && (
+          <a
+            href={getProjectPostUrl(nextPost)}
+            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
+          >
+            <div>
+              <span>Next Post</span>
+              <div class="text-sm text-accent/85">{nextPost.data.title}</div>
+            </div>
+            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
+          </a>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,35 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Main from "@/layouts/Main.astro";
+import Card from "@/components/Card.astro";
+import Pagination from "@/components/Pagination.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { SITE, CONTENT_CONFIG } from "@/config";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => data.type === "unity-weekly" && !data.draft
+  );
+  return paginate(getSortedPosts(projects), { pageSize: SITE.postPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Layout title={`${CONTENT_CONFIG.projects["unity-weekly"].title} | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle={CONTENT_CONFIG.projects["unity-weekly"].title} pageDesc={CONTENT_CONFIG.projects["unity-weekly"].description}>
+    <ul>
+      {page.data.map(post => <Card {...post} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

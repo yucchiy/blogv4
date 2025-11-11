@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Tag from "@/components/Tag.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import getUniqueTags from "@/utils/getUniqueTags";
+import { SITE } from "@/config";
+
+const posts = await getCollection("blog");
+const projects = await getCollection("projects");
+
+let tags = getUniqueTags([...posts, ...projects]);
+---
+
+<Layout title={`Tags | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Tags" pageDesc="記事に付けられたタグの一覧です。">
+    <ul>
+      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

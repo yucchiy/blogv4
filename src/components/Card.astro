@@ -1,0 +1,45 @@
+---
+import { slugifyStr } from "@/utils/slugify";
+import type { CollectionEntry } from "astro:content";
+import { getPath } from "@/utils/getPath";
+import Datetime from "./Datetime.astro";
+
+type BlogEntry = CollectionEntry<"blog">;
+type ProjectEntry = CollectionEntry<"projects">;
+
+export type Props = (BlogEntry | ProjectEntry) & {
+  variant?: "h2" | "h3";
+};
+
+const { variant = "h2", data, id, collection, filePath } = Astro.props;
+
+const { title, pubDatetime } = data;
+const description = data.description;
+const modDatetime = "modDatetime" in data ? data.modDatetime : null;
+const timezone = "timezone" in data ? data.timezone : undefined;
+
+// URL生成: getPath()関数に統一
+const postUrl = getPath(id, filePath);
+
+const headerProps = {
+  style: { viewTransitionName: slugifyStr(title) },
+  class: "text-lg font-medium decoration-dashed hover:underline",
+};
+---
+
+<li class="my-8">
+  <a
+    href={postUrl}
+    class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+  >
+    {
+      variant === "h2" ? (
+        <h2 {...headerProps}>{title}</h2>
+      ) : (
+        <h3 {...headerProps}>{title}</h3>
+      )
+    }
+  </a>
+  <Datetime {pubDatetime} {modDatetime} {timezone} class="my-2" />
+  {description && <p class="mt-2 line-clamp-2">{description}</p>}
+</li>

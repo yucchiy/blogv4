@@ -1,0 +1,43 @@
+# Build output (managed in blog.yucchiy.com repository)
+dist/
+
+# Generated types
+.astro/
+
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# IDE settings
+.idea/
+
+# Pagefind search index (generated at build time)
+public/pagefind/
+
+# Content (managed in blog.yucchiy.com repository)
+# All content under src/data/ should be in separate repository
+src/data/*
+!src/data/.gitkeep
+
+# Content assets (managed in blog.yucchiy.com repository)
+# All images and assets for blog posts should be in separate repository
+public/assets/
+
+# Temporary files
+res/
+logs/
+
+# Claude Code configuration
+.claude/
