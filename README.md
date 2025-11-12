@@ -1,180 +1,247 @@
-# AstroPaper 📄
+# blogv4
 
-![AstroPaper](public/astropaper-og.jpg)
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/community/file/1356898632249991861)
-![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white&style=for-the-badge)](https://conventionalcommits.org)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
+[Yucchiy's Note](https://blog.yucchiy.com/) のブログシステムリポジトリです。
 
-AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme. This theme is designed and crafted based on [my personal blog](https://satnaing.dev/blog).
+## 概要
 
-Read [the blog posts](https://astro-paper.pages.dev/posts/) or check [the README Documentation Section](#-documentation) for more info.
+このリポジトリは技術ブログ「Yucchiy's Note」のブログシステム本体を管理しています。
+[Astro](https://astro.build/) v5.15.5 と [AstroPaper](https://github.com/satnaing/astro-paper) をベースにした静的サイトジェネレーターです。
 
-## 🔥 Features
+記事データは別リポジトリ [yucchiy/blog.yucchiy.com](https://github.com/yucchiy/blog.yucchiy.com) で管理されており、システムとコンテンツを分離することで保守性を高めています。
 
-- [x] type-safe markdown
-- [x] super fast performance
-- [x] accessible (Keyboard/VoiceOver)
-- [x] responsive (mobile ~ desktops)
-- [x] SEO-friendly
-- [x] light & dark mode
-- [x] fuzzy search
-- [x] draft posts & pagination
-- [x] sitemap & rss feed
-- [x] followed best practices
-- [x] highly customizable
-- [x] dynamic OG image generation for blog posts [#15](https://github.com/satnaing/astro-paper/pull/15) ([Blog Post](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/))
+## 特徴
 
-_Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver** on Mac and **TalkBack** on Android. I couldn't test all other screen-readers out there. However, accessibility enhancements in AstroPaper should be working fine on others as well._
+- 📝 Markdown/MDXによる記事執筆
+- 🚀 高速なページ表示（Astroによる静的サイト生成）
+- 🎨 ダークモード対応
+- 🔍 ファジー検索機能
+- 📱 レスポンシブデザイン
+- ♿ アクセシビリティ対応
+- 🏷️ タグ・アーカイブ機能
+- 📊 動的OG画像生成
+- 🗂️ 複数コンテンツタイプのサポート（blog / projects）
 
-## ✅ Lighthouse Score
+## プロジェクト構造
 
-<p align="center">
-  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fastro-paper.pages.dev%2F&form_factor=desktop">
-    <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
-  <a>
-</p>
-
-## 🚀 Project Structure
-
-Inside of AstroPaper, you'll see the following folders and files:
-
-```bash
-/
-├── public/
-│   ├── assets/
-|   ├── pagefind/ # auto-generated when build
-│   └── favicon.svg
-│   └── astropaper-og.jpg
-│   └── favicon.svg
-│   └── toggle-theme.js
+```
+blogv4/
+├── public/              # 静的アセット
+│   └── assets/
+│       └── images/      # 記事画像（デプロイ時にコピーされる）
 ├── src/
-│   ├── assets/
-│   │   └── icons/
-│   │   └── images/
-│   ├── components/
-│   ├── data/
-│   │   └── blog/
-│   │       └── some-blog-posts.md
-│   ├── layouts/
-│   └── pages/
-│   └── styles/
-│   └── utils/
-│   └── config.ts
-│   └── constants.ts
-│   └── content.config.ts
-└── astro.config.ts
+│   ├── assets/          # ビルドに含まれるアセット
+│   ├── components/      # Astroコンポーネント
+│   ├── data/            # コンテンツデータ（デプロイ時にコピーされる）
+│   │   ├── blog/        # ブログ記事
+│   │   └── projects/    # プロジェクト記事
+│   ├── layouts/         # レイアウトコンポーネント
+│   ├── pages/           # ページファイル
+│   ├── styles/          # スタイルシート
+│   ├── utils/           # ユーティリティ関数
+│   ├── config.ts        # サイト設定
+│   └── content.config.ts # コンテンツスキーマ定義
+├── astro.config.ts      # Astro設定
+├── tailwind.config.cjs  # TailwindCSS設定
+└── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 技術スタック
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **フレームワーク**: [Astro](https://astro.build/) v5.15.5
+- **型チェック**: [TypeScript](https://www.typescriptlang.org/)
+- **スタイリング**: [TailwindCSS](https://tailwindcss.com/)
+- **検索**: [Pagefind](https://pagefind.app/)
+- **アイコン**: [Tabler Icons](https://tabler-icons.io/)
+- **コードフォーマット**: [Prettier](https://prettier.io/)
+- **デプロイ**: GitHub Pages
 
-All blog posts are stored in `src/data/blog` directory.
+## コンテンツコレクション
 
-## 📖 Documentation
+このシステムは2種類のコンテンツコレクションをサポートしています：
 
-Documentation can be read in two formats\_ _markdown_ & _blog post_.
+### blog コレクション
 
-- Configuration - [markdown](src/data/blog/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
-- Add Posts - [markdown](src/data/blog/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
-- Customize Color Schemes - [markdown](src/data/blog/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
-- Predefined Color Schemes - [markdown](src/data/blog/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
+技術記事を管理します。
 
-## 💻 Tech Stack
+**スキーマ**:
+```typescript
+{
+  title: string;
+  description?: string;
+  tags?: string[];
+  pubDatetime: Date;
+  modDatetime?: Date;
+  draft?: boolean;
+  ogImage?: ImageMetadata | string;
+}
+```
 
-**Main Framework** - [Astro](https://astro.build/)  
-**Type Checking** - [TypeScript](https://www.typescriptlang.org/)  
-**Styling** - [TailwindCSS](https://tailwindcss.com/)  
-**UI/UX** - [Figma Design File](https://www.figma.com/community/file/1356898632249991861)  
-**Static Search** - [FuseJS](https://pagefind.app/)  
-**Icons** - [Tablers](https://tabler-icons.io/)  
-**Code Formatting** - [Prettier](https://prettier.io/)  
-**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)  
-**Illustration in About Page** - [https://freesvgillustration.com](https://freesvgillustration.com/)  
-**Linting** - [ESLint](https://eslint.org)
+### projects コレクション
 
-## 👨🏻‍💻 Running Locally
+プロジェクト記事（Unity Weekly、チュートリアルシリーズなど）を管理します。
 
-You can start using this project locally by running the following command in your desired directory:
+**スキーマ**:
+```typescript
+{
+  type: "unity-weekly" | "directx12-csharp" | "opentk-opengl";
+  title: string;
+  description?: string;
+  tags?: string[];
+  pubDatetime: Date;
+  draft?: boolean;
+  ogImage?: ImageMetadata | string;
+}
+```
+
+## 開発環境のセットアップ
+
+### 前提条件
+
+- Node.js 20.x
+- Git
+
+### ローカル開発（スタンドアロン）
 
 ```bash
-# pnpm
-pnpm create astro@latest --template satnaing/astro-paper
+# リポジトリのクローン
+git clone https://github.com/yucchiy/blogv4.git
+cd blogv4
 
-# npm
-npm create astro@latest -- --template satnaing/astro-paper
+# 依存関係のインストール
+npm install
 
-# yarn
-yarn create astro --template satnaing/astro-paper
-
-# bun
-bun create astro@latest -- --template satnaing/astro-paper
+# 開発サーバーの起動
+npm run dev
 ```
 
-Then start the project by running the following commands:
+> **Note**: スタンドアロンで起動する場合、`src/data/blog/` および `src/data/projects/` にMarkdownファイルを配置する必要があります。
+
+### コンテンツリポジトリと連携した開発
+
+通常は [blog.yucchiy.com](https://github.com/yucchiy/blog.yucchiy.com) リポジトリから開発します：
 
 ```bash
-# install dependencies if you haven't done so in the previous step.
-pnpm install
+# コンテンツリポジトリのクローン
+git clone https://github.com/yucchiy/blog.yucchiy.com.git
+cd blog.yucchiy.com
 
-# start running the project
-pnpm run dev
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動（blogv4を自動でcloneして起動）
+npm run dev
 ```
 
-As an alternative approach, if you have Docker installed, you can use Docker to run this project locally. Here's how:
+## ビルド
 
 ```bash
-# Build the Docker image
-docker build -t astropaper .
+# 本番ビルド
+npm run build
 
-# Run the Docker container
-docker run -p 4321:80 astropaper
+# ビルド結果のプレビュー
+npm run preview
 ```
 
-## Google Site Verification (optional)
+## システムとコンテンツの分離
 
-You can easily add your [Google Site Verification HTML tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag) in AstroPaper using an environment variable. This step is optional. If you don't add the following environment variable, the google-site-verification tag won't appear in the HTML `<head>` section.
+このブログは以下のように管理されています：
 
-```bash
-# in your environment variable file (.env)
-PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-value
+- **システム** (このリポジトリ): Astroベースのブログシステム
+- **コンテンツ** ([blog.yucchiy.com](https://github.com/yucchiy/blog.yucchiy.com)): 記事データとデプロイ設定
+
+### 分離のメリット
+
+- システムの更新が容易
+- コンテンツの管理がシンプル
+- 再利用性の向上
+- デプロイ設定とシステムの独立
+
+### デプロイ時の連携
+
+GitHub Actionsによるデプロイ時、以下の流れで連携されます：
+
+1. blog.yucchiy.comリポジトリでデプロイアクションが起動
+2. このリポジトリ（blogv4）をチェックアウト
+3. `setup-ci.sh`により記事データをコピー
+   - `articles/` → `src/data/blog/` および `src/data/projects/`
+   - 画像 → `public/assets/images/`
+4. Astroでビルド
+5. GitHub Pagesにデプロイ
+
+## カスタマイズ
+
+### サイト設定
+
+`src/config.ts`でサイトの基本設定を変更できます：
+
+```typescript
+export const SITE = {
+  website: "https://blog.yucchiy.com/",
+  author: "Yucchiy",
+  title: "Yucchiy's Note",
+  desc: "...",
+  // ...
+};
 ```
 
-> See [this discussion](https://github.com/satnaing/astro-paper/discussions/334#discussioncomment-10139247) for adding AstroPaper to the Google Search Console.
+### コンテンツスキーマ
 
-## 🧞 Commands
+`src/content.config.ts`でコンテンツのスキーマを定義します：
 
-All commands are run from the root of the project, from a terminal:
+```typescript
+const blog = defineCollection({
+  loader: glob({
+    pattern: "**/*.{md,markdown}",
+    base: `./${BLOG_PATH}`,
+  }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    // ...
+  }),
+});
+```
 
-> **_Note!_** For `Docker` commands we must have it [installed](https://docs.docker.com/engine/install/) in your machine.
+### スタイリング
 
-| Command                              | Action                                                                                                                           |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm install`                       | Installs dependencies                                                                                                            |
-| `pnpm run dev`                       | Starts local dev server at `localhost:4321`                                                                                      |
-| `pnpm run build`                     | Build your production site to `./dist/`                                                                                          |
-| `pnpm run preview`                   | Preview your build locally, before deploying                                                                                     |
-| `pnpm run format:check`              | Check code format with Prettier                                                                                                  |
-| `pnpm run format`                    | Format codes with Prettier                                                                                                       |
-| `pnpm run sync`                      | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
-| `pnpm run lint`                      | Lint with ESLint                                                                                                                 |
-| `docker compose up -d`               | Run AstroPaper on docker, You can access with the same hostname and port informed on `dev` command.                              |
-| `docker compose run app npm install` | You can run any command above into the docker container.                                                                         |
-| `docker build -t astropaper .`       | Build Docker image for AstroPaper.                                                                                               |
-| `docker run -p 4321:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:4321`.                                             |
+- `src/styles/base.css`: ベーススタイル
+- `tailwind.config.cjs`: TailwindCSS設定
 
-> **_Warning!_** Windows PowerShell users may need to install the [concurrently package](https://www.npmjs.com/package/concurrently) if they want to [run diagnostics](https://docs.astro.build/en/reference/cli-reference/#astro-check) during development (`astro check --watch & astro dev`). For more info, see [this issue](https://github.com/satnaing/astro-paper/issues/113).
+## 主要な機能
 
-## ✨ Feedback & Suggestions
+### URL生成
 
-If you have any suggestions/feedback, you can contact me via [my email](mailto:contact@satnaing.dev). Alternatively, feel free to open an issue if you find bugs or want to request new features.
+`src/utils/getPath.ts`が記事のURLを生成します：
 
-## 📜 License
+- ブログ記事: `/{year}/{month}/{slug}/`
+- プロジェクト記事: `/project/{type}/{slug}/`
 
-Licensed under the MIT License, Copyright © 2025
+### OG画像生成
 
----
+`src/pages/[...slug]/index.png.ts`で動的にOG画像を生成します。
 
-Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contributors](https://github.com/satnaing/astro-paper/graphs/contributors).
+### RSS配信
+
+`src/pages/rss.xml.ts`でRSSフィードを生成します。
+
+### 検索機能
+
+Pagefindによるクライアントサイド検索を実装しています。
+
+## コマンド
+
+| コマンド | 説明 |
+|:---|:---|
+| `npm install` | 依存関係のインストール |
+| `npm run dev` | 開発サーバー起動（`localhost:4321`） |
+| `npm run build` | 本番ビルド（`./dist/`に出力） |
+| `npm run preview` | ビルド結果のプレビュー |
+| `npm run sync` | TypeScript型定義の生成 |
+
+## ライセンス
+
+このプロジェクトはAstroPaperをベースにしており、MITライセンスの下で公開されています。
+
+## クレジット
+
+- [AstroPaper](https://github.com/satnaing/astro-paper) by [Sat Naing](https://satnaing.dev)
+- [Astro](https://astro.build/)
