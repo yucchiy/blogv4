@@ -29,14 +29,16 @@ const projects = defineCollection({
     pattern: "**/*.{md,markdown}",
     base: `./${PROJECTS_PATH}`,
   }),
-  schema: z.object({
-    type: z.enum(["unity-weekly", "directx12-csharp", "opentk-opengl"]),
-    title: z.string(),
-    description: z.string().optional(),
-    tags: z.array(z.string()).default(["others"]),
-    pubDatetime: z.date(),
-    draft: z.boolean().default(false),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      type: z.enum(["unity-weekly", "directx12-csharp", "opentk-opengl"]),
+      title: z.string(),
+      description: z.string().optional(),
+      tags: z.array(z.string()).default(["others"]),
+      pubDatetime: z.date(),
+      draft: z.boolean().default(false),
+      ogImage: image().or(z.string()).optional(),
+    }),
 });
 
 export const collections = { blog, projects };

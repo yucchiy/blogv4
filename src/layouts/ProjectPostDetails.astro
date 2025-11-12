@@ -25,7 +25,7 @@ const { title, description, pubDatetime, tags } = post.data;
 const { Content } = await render(post);
 
 const ogImageUrl = post.data.ogImage
-  ? post.data.ogImage
+  ? (typeof post.data.ogImage === "string" ? post.data.ogImage : post.data.ogImage.src)
   : `/project/unity-weekly/${post.id.replace("unity-weekly/", "")}/index.png`;
 
 // 前後の記事を取得
