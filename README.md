@@ -237,11 +237,3 @@ Pagefindによるクライアントサイド検索を実装しています。
 | `npm run preview` | ビルド結果のプレビュー |
 | `npm run sync` | TypeScript型定義の生成 |
 
-## ライセンス
-
-このプロジェクトはAstroPaperをベースにしており、MITライセンスの下で公開されています。
-
-## クレジット
-
-- [AstroPaper](https://github.com/satnaing/astro-paper) by [Sat Naing](https://satnaing.dev)
-- [Astro](https://astro.build/)
