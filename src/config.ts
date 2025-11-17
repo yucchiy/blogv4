@@ -33,17 +33,17 @@ export const CONTENT_CONFIG = {
     "unity-weekly": {
       title: "Unity Weekly",
       description: "週次でUnityの最新情報をまとめています。",
-      url: "/project/unity-weekly/page/",
+      url: "/project/unity-weekly/page",
     },
     "directx12-csharp": {
       title: "DirectX 12 C# Tutorial",
       description: "C#でDirectX 12を学ぶチュートリアルシリーズです。",
-      url: "/project/directx12-csharp/page/",
+      url: "/project/directx12-csharp/page",
     },
     "opentk-opengl": {
       title: "OpenTK OpenGL Tutorial",
       description: "OpenTKを使ったOpenGL入門シリーズです。",
-      url: "/project/opentk-opengl/page/",
+      url: "/project/opentk-opengl/page",
     },
   },
 } as const;

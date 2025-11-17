@@ -37,10 +37,10 @@ const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : nul
 function getProjectPostUrl(projectPost: CollectionEntry<"projects">) {
   if (projectPost.data.type === "unity-weekly") {
     const number = projectPost.id.replace("unity-weekly/", "");
-    return `/project/unity-weekly/${number}/`;
+    return `/project/unity-weekly/${number}`;
   }
   // 他のプロジェクトタイプの対応は今後追加
-  return `/project/${projectPost.id}/`;
+  return `/project/${projectPost.id}`;
 }
 
 const currentUrl = getProjectPostUrl(post);
