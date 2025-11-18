@@ -15,6 +15,9 @@ import { SITE } from "./src/config";
 export default defineConfig({
   site: SITE.website,
   trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   integrations: [
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),
