@@ -57,7 +57,7 @@ if (breadcrumbList[0] === "project" && breadcrumbList.length >= 3) {
       breadcrumbList.map((breadcrumb, index) => {
         // Projectsリンクの修正
         const isProjects = breadcrumb === "Projects";
-        const href = isProjects ? "/projects/" : `/${breadcrumb}/`;
+        const href = isProjects ? "/projects" : `/${breadcrumb}`;
 
         // Determine if we should use lowercase (only for tags, not for project names)
         const shouldLowercase = index > 0 && breadcrumbList[0] !== "Projects";

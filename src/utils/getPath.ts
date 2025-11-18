@@ -40,13 +40,13 @@ export function getPath(
   // If not inside the sub-dir, simply return the file path
   if (!pathSegments || pathSegments.length < 1) {
     if (projectPrefix) {
-      return basePath ? [basePath, projectPrefix, slug, ""].join("/") : ["", projectPrefix, slug, ""].join("/");
+      return basePath ? [basePath, projectPrefix, slug].join("/") : ["", projectPrefix, slug].join("/");
     }
-    return basePath ? [basePath, slug, ""].join("/") : `/${slug}/`;
+    return basePath ? [basePath, slug].join("/") : `/${slug}`;
   }
 
   if (projectPrefix) {
-    return basePath ? [basePath, projectPrefix, ...pathSegments, slug, ""].join("/") : ["", projectPrefix, ...pathSegments, slug, ""].join("/");
+    return basePath ? [basePath, projectPrefix, ...pathSegments, slug].join("/") : ["", projectPrefix, ...pathSegments, slug].join("/");
   }
-  return basePath ? [basePath, ...pathSegments, slug, ""].join("/") : ["", ...pathSegments, slug, ""].join("/");
+  return basePath ? [basePath, ...pathSegments, slug].join("/") : ["", ...pathSegments, slug].join("/");
 }
