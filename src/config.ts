@@ -1,7 +1,7 @@
 export const SITE = {
-  website: "https://blog.yucchiy.com/", // replace this with your deployed domain
+  website: "https://blog.yucchiy.com", // replace this with your deployed domain
   author: "向井 祐一郎",
-  profile: "https://blog.yucchiy.com/",
+  profile: "https://blog.yucchiy.com",
   desc: "Unityエンジニアの yucchiy の ノートです。",
   title: "Yucchiy's Note",
   ogImage: "astropaper-og.jpg",
