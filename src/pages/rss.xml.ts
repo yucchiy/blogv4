@@ -31,5 +31,6 @@ export async function GET() {
     description: SITE.desc,
     site: SITE.website,
     items: allItems,
+    trailingSlash: false,
   });
 }
