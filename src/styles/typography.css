@@ -60,7 +60,7 @@
     }
 
     img {
-      @apply mx-auto border border-border;
+      @apply mx-auto border border-border cursor-pointer transition-opacity hover:opacity-80;
     }
 
     figcaption {
@@ -131,5 +131,59 @@
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
     }
+  }
+
+  /* ===== GLightbox ダークモード対応 ===== */
+  html[data-theme="dark"] .glightbox-container {
+    background-color: rgba(15, 23, 42, 0.95);
+  }
+
+  html[data-theme="dark"] .gslide-title,
+  html[data-theme="dark"] .gslide-description {
+    color: var(--foreground);
+  }
+
+  html[data-theme="dark"] .gslide-inner-content {
+    background-color: var(--background);
+  }
+
+  .glightbox-container {
+    z-index: 50; /* progress-bar (z-10) より上に表示 */
+  }
+
+  /* ===== GLightbox アニメーション速度のカスタマイズ ===== */
+  /* フェードエフェクト */
+  .gfadeIn {
+    animation: gfadeIn 0.15s ease !important;
+  }
+
+  .gfadeOut {
+    animation: gfadeOut 0.15s ease !important;
+  }
+
+  /* ズームエフェクト */
+  .gzoomIn {
+    animation: gzoomIn 0.15s ease !important;
+  }
+
+  .gzoomOut {
+    animation: gzoomOut 0.15s ease !important;
+  }
+
+  /* スライドエフェクト */
+  .gslideInLeft {
+    animation: gslideInLeft 0.15s ease !important;
+  }
+
+  .gslideOutLeft {
+    animation: gslideOutLeft 0.15s ease !important;
+  }
+
+  .gslideInRight {
+    animation: gslideInRight 0.15s ease !important;
+  }
+
+  .gslideOutRight {
+    animation: gslideOutRight 0.15s ease !important;
   }
 }
