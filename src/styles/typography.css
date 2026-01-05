@@ -33,6 +33,49 @@
       @apply text-lg;
     }
 
+    /* モバイル表示時のフォントサイズ調整 */
+    @media (max-width: 640px) {
+      @apply prose-base;
+
+      h1 {
+        @apply text-2xl;
+      }
+
+      h2 {
+        @apply text-xl;
+      }
+
+      h3 {
+        @apply text-lg;
+      }
+
+      h4 {
+        @apply text-base;
+      }
+
+      /* モバイルでの可読性向上 */
+      p {
+        line-height: 1.65;
+      }
+
+      ul,
+      ol {
+        padding-left: 1rem; /* デフォルトより少し詰める */
+      }
+
+      li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      /* ネストされたリストの上下余白を詰める */
+      li > ul,
+      li > ol {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+
     p,
     strong,
     ol,
