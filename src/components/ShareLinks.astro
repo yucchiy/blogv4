@@ -22,13 +22,17 @@ const URL = Astro.url;
             shareUrl = `${social.href}${URL}&text=${encodeURIComponent(title)}`;
           }
 
+          const iconClass = social.iconStyle === "outline"
+            ? "inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"
+            : "inline-block size-6 scale-125 fill-current opacity-90 sm:scale-110";
+
           return (
             <LinkButton
               href={shareUrl}
               class="scale-90 p-2 hover:rotate-6 sm:p-1"
               title={social.linkTitle}
             >
-              <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+              <social.icon class={iconClass} />
               <span class="sr-only">{social.linkTitle}</span>
             </LinkButton>
           );

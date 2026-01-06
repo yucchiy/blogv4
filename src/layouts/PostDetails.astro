@@ -310,7 +310,7 @@ const nextPost =
     const lightbox = GLightbox({
       selector: '[data-glightbox]',
       descPosition: 'bottom',
-      touchNavigation: false, // スワイプ切り替えなし
+      touchNavigation: true, // ピンチズームを有効化するためtrueに設定（個別表示のため実質スワイプ切り替えなし）
       keyboardNavigation: false, // 矢印キー切り替えなし
       closeOnOutsideClick: true,
       openEffect: 'zoom',
