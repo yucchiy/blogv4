@@ -41,7 +41,7 @@ html[data-theme="dark"] {
     @apply overflow-y-scroll scroll-smooth;
   }
   body {
-    @apply flex min-h-svh flex-col bg-background text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col bg-background text-foreground antialiased selection:bg-accent/75 selection:text-background;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", "Yu Gothic Medium", "Yu Gothic", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
   a,

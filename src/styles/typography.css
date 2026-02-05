@@ -10,11 +10,10 @@
     h3,
     h4,
     th {
-      @apply mb-3 font-bold;
+      @apply mb-3 font-semibold tracking-tight;
       color: var(--heading);
       font-style: normal;
-      line-height: 1.6;
-      letter-spacing: 0.02em;
+      line-height: 1.4;
     }
 
     h1 {
@@ -95,7 +94,13 @@
     }
 
     li {
-      @apply marker:text-accent;
+      @apply marker:text-accent my-1;
+    }
+
+    /* ネストされたリストの余白を詰める */
+    li > ul,
+    li > ol {
+      @apply my-1;
     }
 
     hr {

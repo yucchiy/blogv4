@@ -40,6 +40,7 @@ import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
     const btnContainer = document.querySelector("#btt-btn-container");
     const backToTopBtn = document.querySelector("[data-button='back-to-top']");
     const progressIndicator = document.querySelector("#progress-indicator");
+    const footer = document.querySelector("footer");
 
     if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
       return;
@@ -70,6 +71,20 @@ import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
         btnContainer.classList.toggle("opacity-0", !isVisible);
         btnContainer.classList.toggle("translate-y-14", !isVisible);
         lastVisible = isVisible;
+      }
+
+      // Adjust button position when footer is visible (mobile only)
+      if (footer && window.innerWidth < 768) {
+        const footerRect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const buttonHeight = 56 + 32; // size-14 (56px) + bottom-8 (32px)
+
+        if (footerRect.top < viewportHeight) {
+          const offset = viewportHeight - footerRect.top + 16;
+          btnContainer.style.bottom = `${offset}px`;
+        } else {
+          btnContainer.style.bottom = "";
+        }
       }
     }
 
