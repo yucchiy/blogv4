@@ -17,7 +17,7 @@ let tags = getUniqueTags([...posts, ...projects]);
 <Layout title={`Tags | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Tags" pageDesc="記事に付けられたタグの一覧です。">
-    <ul>
+    <ul class="flex flex-wrap gap-2">
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
     </ul>
   </Main>
