@@ -18,7 +18,7 @@ let tags = getUniqueTags([...posts, ...projects]);
   <Header />
   <Main pageTitle="Tags" pageDesc="記事に付けられたタグの一覧です。">
     <ul class="flex flex-wrap gap-2">
-      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
+      {tags.map(({ tag, tagName, count }) => <Tag {tag} {tagName} {count} size="lg" />)}
     </ul>
   </Main>
   <Footer />

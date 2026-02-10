@@ -3,9 +3,10 @@ export interface Props {
   tag: string;
   tagName: string;
   size?: "sm" | "lg";
+  count?: number;
 }
 
-const { tag, tagName, size = "sm" } = Astro.props;
+const { tag, tagName, size = "sm", count } = Astro.props;
 ---
 
 <li class="inline">
@@ -17,6 +18,6 @@ const { tag, tagName, size = "sm" } = Astro.props;
       { "text-sm px-1.5 py-0.5": size === "sm" },
     ]}
   >
-    {tagName}
+    {tagName}{count != null && <span class="ml-1 opacity-60">({count})</span>}
   </a>
 </li>

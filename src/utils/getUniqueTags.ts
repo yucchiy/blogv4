@@ -5,6 +5,7 @@ import postFilter from "./postFilter";
 interface Tag {
   tag: string;
   tagName: string;
+  count: number;
 }
 
 // オーバーロード定義
@@ -14,21 +15,29 @@ function getUniqueTags(posts: (CollectionEntry<"blog"> | CollectionEntry<"projec
 
 // 実装
 function getUniqueTags(posts: (CollectionEntry<"blog"> | CollectionEntry<"projects">)[]): Tag[] {
-  const tags: Tag[] = posts
-    .filter(post => {
-      if (post.collection === "blog") {
-        return postFilter(post as CollectionEntry<"blog">);
+  const filteredPosts = posts.filter(post => {
+    if (post.collection === "blog") {
+      return postFilter(post as CollectionEntry<"blog">);
+    }
+    return !post.data.draft;
+  });
+
+  const countMap = new Map<string, { tagName: string; count: number }>();
+  for (const post of filteredPosts) {
+    for (const tagName of post.data.tags) {
+      const slug = slugifyStr(tagName);
+      const existing = countMap.get(slug);
+      if (existing) {
+        existing.count++;
+      } else {
+        countMap.set(slug, { tagName, count: 1 });
       }
-      // projects の場合は draft でなければ表示
-      return !post.data.draft;
-    })
-    .flatMap(post => post.data.tags)
-    .map(tag => ({ tag: slugifyStr(tag), tagName: tag }))
-    .filter(
-      (value, index, self) =>
-        self.findIndex(tag => tag.tag === value.tag) === index
-    )
-    .sort((tagA, tagB) => tagA.tag.localeCompare(tagB.tag));
+    }
+  }
+
+  const tags: Tag[] = Array.from(countMap.entries())
+    .map(([tag, { tagName, count }]) => ({ tag, tagName, count }))
+    .sort((a, b) => a.tag.localeCompare(b.tag));
   return tags;
 }
 
