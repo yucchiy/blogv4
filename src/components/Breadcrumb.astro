@@ -47,7 +47,7 @@ if (breadcrumbList[0] === "project" && breadcrumbList.length >= 3) {
 }
 ---
 
-<nav class="mx-auto mt-8 mb-1 w-full max-w-app px-4" aria-label="breadcrumb">
+<nav class="mx-auto mt-8 mb-6 w-full max-w-app px-4" aria-label="breadcrumb">
   <ul
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
@@ -67,7 +67,10 @@ if (breadcrumbList[0] === "project" && breadcrumbList.length >= 3) {
         return index + 1 === breadcrumbList.length ? (
           <li>
             <span
-              class:list={["capitalize opacity-75", { lowercase: shouldLowercase }]}
+              class:list={[
+                "capitalize opacity-75",
+                { lowercase: shouldLowercase },
+              ]}
               aria-current="page"
             >
               {/* make the last part lowercase in Home > Tags > some-tag */}

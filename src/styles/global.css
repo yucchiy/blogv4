@@ -5,21 +5,21 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #ffffff; /* 純白 */
-  --foreground: #334155; /* Slate-700 - 落ち着いた青灰色 */
-  --heading: #1e293b;    /* Slate-800 - 見出し用 */
-  --accent: #6366f1;     /* Indigo-500 - モダンで洗練された紫青 */
-  --muted: #e2e8f0;      /* Slate-200 - 柔らかいミュート */
-  --border: #cbd5e1;     /* Slate-300 - 優しいボーダー */
+  --background: #ffffff;
+  --foreground: #404040;
+  --heading: #262626;
+  --accent: #a04f45;
+  --muted: #f5f5f5;
+  --border: #d4d4d4;
 }
 
 html[data-theme="dark"] {
-  --background: #0f172a; /* Slate-900 - 深い青黒 */
-  --foreground: #cbd5e1; /* Slate-300 - 柔らかいライトグレー */
-  --heading: #f1f5f9;    /* Slate-100 - 見出し用 */
-  --accent: #818cf8;     /* Indigo-400 - バランスの良い紫青 */
-  --muted: #334155;      /* Slate-700 - ミュート要素用 */
-  --border: #475569;     /* Slate-600 - ボーダー用 */
+  --background: #171717;
+  --foreground: #d4d4d4;
+  --heading: #f5f5f5;
+  --accent: #e8aaa0;
+  --muted: #262626;
+  --border: #525252;
 }
 
 @theme inline {
@@ -44,6 +44,14 @@ html[data-theme="dark"] {
     @apply flex min-h-svh flex-col bg-background text-foreground antialiased selection:bg-accent/75 selection:text-background;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", "Yu Gothic Medium", "Yu Gothic", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--heading);
+  }
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
@@ -59,7 +67,7 @@ html[data-theme="dark"] {
 }
 
 @utility max-w-app {
-  @apply max-w-3xl;
+  max-width: 54rem;
 }
 
 .active-nav {

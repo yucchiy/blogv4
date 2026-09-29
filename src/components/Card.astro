@@ -23,14 +23,14 @@ const postUrl = getPath(id, filePath);
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
-  class: "text-lg font-medium decoration-dashed hover:underline",
+  class: "text-xl font-semibold leading-snug decoration-dashed hover:underline",
 };
 ---
 
 <li class="my-8">
   <a
     href={postUrl}
-    class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+    class="inline-block text-heading decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
   >
     {
       variant === "h2" ? (
@@ -41,5 +41,9 @@ const headerProps = {
     }
   </a>
   <Datetime {pubDatetime} {modDatetime} {timezone} class="my-2" />
-  {description && <p class="mt-2 line-clamp-2">{description}</p>}
+  {
+    description && (
+      <p class="mt-2 line-clamp-2 text-foreground/80">{description}</p>
+    )
+  }
 </li>

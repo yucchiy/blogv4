@@ -86,7 +86,7 @@
     }
 
     a {
-      @apply break-words text-foreground underline-offset-4 hover:text-accent focus-visible:no-underline;
+      @apply break-words text-accent underline-offset-4 hover:decoration-2 focus-visible:no-underline;
     }
 
     ul {
@@ -94,7 +94,7 @@
     }
 
     li {
-      @apply marker:text-accent my-1;
+      @apply marker:text-foreground/70 my-1;
     }
 
     /* ネストされたリストの余白を詰める */
@@ -183,7 +183,7 @@
 
   /* ===== GLightbox ダークモード対応 ===== */
   html[data-theme="dark"] .glightbox-container {
-    background-color: rgba(15, 23, 42, 0.95);
+    background-color: rgba(23, 23, 23, 0.95);
   }
 
   html[data-theme="dark"] .gslide-title,
