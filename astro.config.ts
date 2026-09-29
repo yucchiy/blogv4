@@ -1,6 +1,7 @@
 import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import {
@@ -14,9 +15,10 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  trailingSlash: 'never',
+  trailingSlash: "never",
+  compressHTML: true,
   build: {
-    format: 'file',
+    format: "file",
   },
   integrations: [
     sitemap({
@@ -24,7 +26,12 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    processor: unified({
+      remarkPlugins: [
+        remarkToc,
+        [remarkCollapse, { test: "Table of contents" }],
+      ],
+    }),
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
@@ -39,10 +46,6 @@ export default defineConfig({
     },
   },
   vite: {
-    // eslint-disable-next-line
-    // @ts-ignore
-    // This will be fixed in Astro 6 with Vite 7 support
-    // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
@@ -72,8 +75,5 @@ export default defineConfig({
         optional: true,
       }),
     },
-  },
-  experimental: {
-    preserveScriptOrder: true,
   },
 });
