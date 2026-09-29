@@ -8,6 +8,8 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
 const CACHE_DIR = join(process.cwd(), "node_modules", ".og_image_cache");
+// Bump this when an OG template changes so deployed builds replace cached images.
+const OG_TEMPLATE_VERSION = 4;
 
 // キャッシュディレクトリが存在しない場合は作成
 if (!existsSync(CACHE_DIR)) {
@@ -24,7 +26,7 @@ function svgBufferToPngBuffer(svg: string) {
 function generateContentHash(
   post: CollectionEntry<"blog"> | CollectionEntry<"projects">
 ): string {
-  const content = `${post.data.title}|${post.data.pubDatetime?.toISOString() || ""}`;
+  const content = `${OG_TEMPLATE_VERSION}|${post.data.title}|${post.data.pubDatetime?.toISOString() || ""}`;
   return createHash("sha256").update(content).digest("hex").substring(0, 16);
 }
 
@@ -43,9 +45,10 @@ export async function generateOgImageForPost(
 
   // キャッシュがない場合は生成
   console.log(`[OG Cache] Generating new image for: ${post.data.title}`);
-  const template = "data" in post && "type" in post.data && post.data.type === "unity-weekly"
-    ? projectOgImage
-    : postOgImage;
+  const template =
+    "data" in post && "type" in post.data && post.data.type === "unity-weekly"
+      ? projectOgImage
+      : postOgImage;
   const svg = await template(post);
   const buffer = svgBufferToPngBuffer(svg);
 
@@ -53,7 +56,10 @@ export async function generateOgImageForPost(
   try {
     writeFileSync(cachePath, buffer);
   } catch (error) {
-    console.warn(`[OG Cache] Failed to write cache for: ${post.data.title}`, error);
+    console.warn(
+      `[OG Cache] Failed to write cache for: ${post.data.title}`,
+      error
+    );
   }
 
   return buffer;

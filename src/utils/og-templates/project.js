@@ -13,7 +13,7 @@ export default async post => {
         style: {
           fontSize: 52,
           fontWeight: "bold",
-          color: "#1e293b",
+          color: "#262626",
           lineHeight: 1.3,
           marginBottom: showDescription ? "30px" : "40px",
         },
@@ -28,7 +28,7 @@ export default async post => {
       props: {
         style: {
           fontSize: 28,
-          color: "#64748b",
+          color: "#606060",
           lineHeight: 1.5,
           marginBottom: "40px",
         },
@@ -44,7 +44,7 @@ export default async post => {
         style: {
           width: "100%",
           height: "4px",
-          background: "linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%)",
+          background: "#a04f45",
           marginBottom: "40px",
         },
       },
@@ -54,7 +54,7 @@ export default async post => {
       props: {
         style: {
           fontSize: 32,
-          color: "#334155",
+          color: "#404040",
           fontWeight: "normal",
         },
         children: SITE.title,
@@ -71,7 +71,7 @@ export default async post => {
       type: "div",
       props: {
         style: {
-          background: "linear-gradient(135deg, #4f46e5 0%, #6366f1 40%, #a5b4fc 100%)",
+          background: "#d4a89f",
           width: "100%",
           height: "100%",
           display: "flex",
